@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # BoxTech 🖥️🟣
 
 > Plataforma de e-commerce de hardware, periféricos e produtos gamer, desenvolvida como Projeto Integrado Multidisciplinar (PIM IV) do curso de Análise e Desenvolvimento de Sistemas da UNIP: **Desenvolvimento e Implantação de uma Solução Tecnológica Corporativa Integrada**.
@@ -203,3 +204,4 @@ Projeto desenvolvido para a disciplina Projeto Integrado Multidisciplinar (PIM I
 # 📄 Licença
 
 Projeto acadêmico desenvolvido exclusivamente para fins educacionais.
+
