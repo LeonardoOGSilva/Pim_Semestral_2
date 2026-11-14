@@ -204,6 +204,10 @@ Projeto desenvolvido para a disciplina Projeto Integrado Multidisciplinar (PIM I
 # 📄 Licença
 
 Projeto acadêmico desenvolvido exclusivamente para fins educacionais.
+<<<<<<< HEAD
 =======
 # Pim_Semestral_2
 >>>>>>> 378c48b7a519e7e550d5c84cbff0e1400fe3dd90
+=======
+
+>>>>>>> f86fd351bc8cdbc146e5d57d6915bf0ccaa4f75d
