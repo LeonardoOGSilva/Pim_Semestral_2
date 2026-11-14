@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BoxTech - Carrinho</title>
+    <!-- Ícones e estilos globais do site -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css?v=6">
+    <link rel="shortcut icon" href="Imagens/Icon.jpg" type="image/x-icon">
+</head>
+<body>
+
+    <!-- Cabeçalho com logo, pesquisa e links de navegação rápida -->
+    <div class="top-bar">FRETE GRÁTIS EM HARDWARE ACIMA DE R$ 1.000</div>
+    <header class="header">
+        <a href="index.html" class="logo">Box<span>Tech</span></a>
+        <div class="search-bar">
+            <input type="text" placeholder="O que você está procurando hoje?">
+            <button><i class="fas fa-search"></i></button>
+        </div>
+        <div class="header-icons">
+            <a href="login.html" aria-label="Perfil"><i class="far fa-user" title="Perfil"></i></a>
+            <a href="favoritos.html" aria-label="Favoritos"><i class="far fa-heart" title="Favoritos"></i></a>
+            <a href="carrinho.html" aria-label="Carrinho"><i class="fas fa-shopping-cart" title="Carrinho"></i><span class="cart-badge" id="cart-badge" hidden>0</span></a>
+            <a href="acessibilidade.html" aria-label="Acessibilidade"><i class="fas fa-universal-access" title="Acessibilidade"></i></a>
+        </div>
+    </header>
+
+    <main class="main-content">
+        <nav class="sub-nav">
+            <a href="index.html" class="back-button"><i class="fas fa-arrow-left"></i> Continuar comprando</a>
+        </nav>
+
+        <section class="cart-section">
+            <h2 class="section-title-cart">Produtos</h2>
+
+            <div id="cart-itens"><p style="padding:20px">Carregando carrinho...</p></div>
+
+            <div style="text-align:right; font-size:1.25rem; margin:20px 0;">
+                Subtotal: <strong id="cart-total">R$ 0,00</strong>
+            </div>
+
+            <div class="shipping-calculator-cart">
+                <div class="shipping-bar">
+                    <i class="fas fa-truck"></i>
+                    <input type="text" placeholder="Insira o CEP*">
+                    <i class="fas fa-search"></i>
+                    <button class="btn-pesquisa-cep">pesquise</button>
+                </div>
+                <div class="frete-resultado" style="display: none; margin-top: 15px; padding: 15px; background-color: var(--surface); border: 1px solid var(--border-color); border-radius: 8px; font-size: 14px; max-width: 600px;"></div>
+                <p style="color: var(--text-muted); font-size: 0.8rem; margin-top: 8px;">O frete final é calculado no checkout, conforme o endereço escolhido. Grátis acima de R$ 1.000,00.</p>
+            </div>
+
+            <div class="cart-footer">
+                <button class="btn-continuar-cart" id="btn-continuar">Continuar</button>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <div class="footer-container">
+            <div class="footer-column">
+                <h3>Box<span>Tech</span></h3>
+                <p>A sua loja definitiva de hardware e periféricos de alta performance. Desenvolvido para gamers e profissionais exigentes.</p>
+                <div class="footer-socials">
+                    <a href="institucional.html#contato" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                    <a href="institucional.html#contato" aria-label="LinkedIn"><i class="fab fa-linkedin"></i></a>
+                    <a href="institucional.html#contato" aria-label="GitHub"><i class="fab fa-github"></i></a>
+                    <a href="institucional.html#contato" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
+                </div>
+            </div>
+            <div class="footer-column">
+                <h3>Atendimento</h3>
+                <ul class="footer-links">
+                    <li><a href="institucional.html#ajuda">Central de Ajuda</a></li>
+                    <li><a href="institucional.html#trocas">Trocas e Devoluções</a></li>
+                    <li><a href="institucional.html#prazos">Prazos de Entrega</a></li>
+                    <li><a href="acessibilidade.html">Acessibilidade</a></li>
+                </ul>
+            </div>
+            <div class="footer-column">
+                <h3>Institucional</h3>
+                <ul class="footer-links">
+                    <li><a href="institucional.html#quem-somos">Quem Somos</a></li>
+                    <li><a href="institucional.html#privacidade">Políticas de Privacidade</a></li>
+                    <li><a href="institucional.html#termos">Termos de Uso</a></li>
+                    <li><a href="institucional.html#trabalhe">Trabalhe Conosco</a></li>
+                </ul>
+            </div>
+            <div class="footer-column">
+                <h3>Pagamento</h3>
+                <p>Aceitamos as principais bandeiras:</p>
+                <div class="footer-payments">
+                    <i class="fab fa-cc-mastercard" title="Mastercard"></i>
+                    <i class="fab fa-cc-visa" title="Visa"></i>
+                    <i class="fab fa-pix" title="Pix"></i>
+                    <i class="fas fa-barcode" title="Boleto"></i>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2026 BoxTech Eletrônicos Ltda. Todos os direitos reservados. Projeto Acadêmico UNIP (PIM).</p>
+        </div>
+    </footer>
+    <!-- Plugin VLibras para tradução de conteúdo em Libras -->
+    <div vw class="enabled">
+        <div vw-access-button class="active"></div>
+        <div vw-plugin-wrapper>
+            <div class="vw-plugin-top-wrapper"></div>
+        </div>
+    </div>
+    <script src="https://vlibras.gov.br/app/vlibras-plugin.js"></script>
+    <script>
+        new window.VLibras.Widget('https://vlibras.gov.br/app');
+    </script>
+    <!-- Script principal do site, responsável por interações e ajustes de interface -->
+    <script src="api.js?v=6"></script>
+    <script src="script.js?v=6"></script>
+    <script src="pages.js?v=6"></script>
+</body>
+</html>

@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <!-- Configurações básicas da página -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Título exibido na aba do navegador -->
+    <title>BoxTech - Categoria</title>
+
+    <!-- Biblioteca de ícones Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <!-- Arquivo principal de estilos -->
+    <link rel="stylesheet" href="style.css?v=6">
+
+    <!-- Ícone da aplicação -->
+    <link rel="shortcut icon" href="Imagens/Icon.jpg" type="image/x-icon">
+</head>
+<body>
+
+    <!-- Cabeçalho principal do site -->
+    <div class="top-bar">FRETE GRÁTIS EM HARDWARE ACIMA DE R$ 1.000</div>
+    <header class="header">
+
+        <!-- Logo da loja -->
+        <a href="index.html" class="logo">
+            Box<span>Tech</span>
+        </a>
+
+        <!-- Barra de pesquisa de produtos -->
+        <div class="search-bar">
+            <input type="text" placeholder="O que você está procurando hoje?">
+            <button>
+                <i class="fas fa-search"></i>
+            </button>
+        </div>
+
+        <!-- Ícones de navegação rápida -->
+        <div class="header-icons">
+            <a href="login.html" aria-label="Perfil"><i class="far fa-user" title="Perfil"></i></a>
+            <a href="favoritos.html" aria-label="Favoritos"><i class="far fa-heart" title="Favoritos"></i></a>
+            <a href="carrinho.html" aria-label="Carrinho"><i class="fas fa-shopping-cart" title="Carrinho"></i><span class="cart-badge" id="cart-badge" hidden>0</span></a>
+            <a href="acessibilidade.html" aria-label="Acessibilidade"><i class="fas fa-universal-access" title="Acessibilidade"></i></a>
+        </div>
+
+    </header>
+
+    <!-- Conteúdo principal da página -->
+    <main class="main-content">
+        <nav class="sub-nav">
+            <a href="index.html" class="back-button"><i class="fas fa-arrow-left"></i> Voltar à Home</a>
+        </nav>
+
+        <div class="category-header">
+            <div>
+                <h2 id="cat-titulo">Categoria</h2>
+                <p id="cat-contagem" style="color: var(--text-muted); font-size: 0.875rem; margin-top: 5px;"></p>
+            </div>
+            <div class="category-sort">
+                <label for="ordenar" style="color: var(--text-muted); font-size: 0.875rem; margin-right: 10px;">Ordenar por:</label>
+                <select id="ordenar" class="sort-select">
+                    <option value="relevancia">Mais Relevantes</option>
+                    <option value="menor-preco">Menor Preço</option>
+                    <option value="maior-preco">Maior Preço</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="category-layout">
+            <aside class="filters-sidebar">
+                <div class="filter-group" id="filtro-precos">
+                    <h3>Preço</h3>
+                    <label class="filter-item"><input type="checkbox" value="ate100"> Até R$ 100,00</label>
+                    <label class="filter-item"><input type="checkbox" value="100a300"> R$ 100,00 a R$ 300,00</label>
+                    <label class="filter-item"><input type="checkbox" value="300a500"> R$ 300,00 a R$ 500,00</label>
+                    <label class="filter-item"><input type="checkbox" value="acima500"> Acima de R$ 500,00</label>
+                </div>
+                <div class="filter-group">
+                    <h3>Marcas</h3>
+                    <div id="filtro-marcas"></div>
+                </div>
+                <button class="btn-primary" id="btn-aplicar" style="margin-top: 10px;">Aplicar Filtros</button>
+            </aside>
+            <section class="produtos-grid" id="produtos-grid" style="flex: 1;"><p>Carregando...</p></section>
+        </div>
+    </main>
+
+    <!-- Rodapé institucional -->
+    <footer class="footer">
+
+        <div class="footer-container">
+
+            <!-- Informações da empresa -->
+            <div class="footer-column">
+
+                <h3>Box<span>Tech</span></h3>
+
+                <p>
+                    A sua loja definitiva de hardware e periféricos de alta performance.
+                    Desenvolvido para gamers e profissionais exigentes.
+                </p>
+
+                <!-- Redes sociais -->
+                <div class="footer-socials">
+
+                    <a href="institucional.html#contato" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                    <a href="institucional.html#contato" aria-label="LinkedIn"><i class="fab fa-linkedin"></i></a>
+                    <a href="institucional.html#contato" aria-label="GitHub"><i class="fab fa-github"></i></a>
+                    <a href="institucional.html#contato" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
+
+                </div>
+
+            </div>
+
+            <!-- Links de atendimento -->
+            <div class="footer-column">
+
+                <h3>Atendimento</h3>
+
+                <ul class="footer-links">
+                    <li><a href="institucional.html#ajuda">Central de Ajuda</a></li>
+                    <li><a href="institucional.html#trocas">Trocas e Devoluções</a></li>
+                    <li><a href="institucional.html#prazos">Prazos de Entrega</a></li>
+                    <li><a href="acessibilidade.html">Acessibilidade</a></li>
+                </ul>
+
+            </div>
+
+            <!-- Links institucionais -->
+            <div class="footer-column">
+
+                <h3>Institucional</h3>
+
+                <ul class="footer-links">
+                    <li><a href="institucional.html#quem-somos">Quem Somos</a></li>
+                    <li><a href="institucional.html#privacidade">Políticas de Privacidade</a></li>
+                    <li><a href="institucional.html#termos">Termos de Uso</a></li>
+                    <li><a href="institucional.html#trabalhe">Trabalhe Conosco</a></li>
+                </ul>
+
+            </div>
+
+            <!-- Métodos de pagamento -->
+            <div class="footer-column">
+
+                <h3>Pagamento</h3>
+
+                <p>Aceitamos as principais bandeiras:</p>
+
+                <div class="footer-payments">
+                    <i class="fab fa-cc-mastercard" title="Mastercard"></i>
+                    <i class="fab fa-cc-visa" title="Visa"></i>
+                    <i class="fab fa-pix" title="Pix"></i>
+                    <i class="fas fa-barcode" title="Boleto"></i>
+                </div>
+
+            </div>
+
+        </div>
+
+        <!-- Direitos autorais -->
+        <div class="footer-bottom">
+            <p>
+                &copy; 2026 BoxTech Eletrônicos Ltda.
+                Todos os direitos reservados.
+                Projeto Acadêmico UNIP (PIM).
+            </p>
+        </div>
+
+    </footer>
+
+    <!-- Plugin de acessibilidade VLibras -->
+    <div vw class="enabled">
+        <div vw-access-button class="active"></div>
+        <div vw-plugin-wrapper>
+            <div class="vw-plugin-top-wrapper"></div>
+        </div>
+    </div>
+
+    <!-- Script do VLibras -->
+    <script src="https://vlibras.gov.br/app/vlibras-plugin.js"></script>
+
+    <script>
+        new window.VLibras.Widget('https://vlibras.gov.br/app');
+    </script>
+
+    <!-- Script principal do sistema -->
+    <script src="api.js?v=6"></script>
+    <script src="script.js?v=6"></script>
+    <script src="pages.js?v=6"></script>
+
+</body>
+</html>

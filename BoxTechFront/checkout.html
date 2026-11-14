@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BoxTech - Finalizar Pedido</title>
+    <!-- Ícones e estilo base usados em todas as páginas -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css?v=6">
+    <link rel="shortcut icon" href="Imagens/Icon.jpg" type="image/x-icon">
+</head>
+<body>
+
+    <!-- Header global com marca, busca e atalhos de navegação -->
+    <div class="top-bar">FRETE GRÁTIS EM HARDWARE ACIMA DE R$ 1.000</div>
+    <header class="header">
+        <a href="index.html" class="logo">Box<span>Tech</span></a>
+        <div class="search-bar">
+            <input type="text" placeholder="O que você está procurando hoje?">
+            <button><i class="fas fa-search"></i></button>
+        </div>
+        <div class="header-icons">
+            <a href="login.html" aria-label="Perfil"><i class="far fa-user" title="Perfil"></i></a>
+            <a href="favoritos.html" aria-label="Favoritos"><i class="far fa-heart" title="Favoritos"></i></a>
+            <a href="carrinho.html" aria-label="Carrinho"><i class="fas fa-shopping-cart" title="Carrinho"></i><span class="cart-badge" id="cart-badge" hidden>0</span></a>
+            <a href="acessibilidade.html" aria-label="Acessibilidade"><i class="fas fa-universal-access" title="Acessibilidade"></i></a>
+        </div>
+    </header>
+
+    <main class="main-content">
+        <nav class="sub-nav" style="margin-bottom: 20px;">
+            <a href="carrinho.html" class="back-button"><i class="fas fa-arrow-left"></i> Voltar ao Carrinho</a>
+        </nav>
+
+        <h2 style="font-size: 2rem; color: var(--brand); margin-bottom: 30px;">Finalizar Pedido</h2>
+
+        <div class="checkout-layout">
+            <div class="checkout-forms">
+
+                <section class="checkout-section">
+                    <h3><i class="fas fa-map-marker-alt"></i> Endereço de Entrega</h3>
+                    <div id="enderecos-lista"></div>
+
+                    <div id="form-endereco" style="display:none; margin-top: 15px;">
+                        <div class="form-row">
+                            <div class="form-group"><label for="end-apelido">Apelido</label><input type="text" id="end-apelido" placeholder="Casa, Trabalho..."></div>
+                            <div class="form-group"><label for="end-cep">CEP</label><input type="text" id="end-cep" placeholder="00000-000"></div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group" style="flex: 2;"><label for="end-logradouro">Rua / Avenida</label><input type="text" id="end-logradouro"></div>
+                            <div class="form-group"><label for="end-numero">Número</label><input type="text" id="end-numero"></div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group"><label for="end-complemento">Complemento</label><input type="text" id="end-complemento" placeholder="Apto, Bloco"></div>
+                            <div class="form-group"><label for="end-bairro">Bairro</label><input type="text" id="end-bairro"></div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group" style="flex: 2;"><label for="end-cidade">Cidade</label><input type="text" id="end-cidade"></div>
+                            <div class="form-group"><label for="end-estado">Estado (UF)</label><input type="text" id="end-estado" maxlength="2"></div>
+                        </div>
+                        <button type="button" class="btn-primary" id="btn-salvar-endereco" style="width:auto;padding:10px 24px;">Salvar endereço</button>
+                    </div>
+                </section>
+
+                <section class="checkout-section">
+                    <h3><i class="fas fa-wallet"></i> Forma de Pagamento</h3>
+
+                    <div class="payment-options">
+                        <label class="payment-method">
+                            <input type="radio" name="pagamento" value="cartao" checked>
+                            <i class="fas fa-credit-card"></i> Cartão de Crédito
+                        </label>
+                        <label class="payment-method">
+                            <input type="radio" name="pagamento" value="pix">
+                            <i class="fab fa-pix"></i> Pix
+                        </label>
+                    </div>
+
+                    <div id="form-cartao" class="payment-form active">
+                        <p style="color: var(--text-muted); font-size: 0.85rem; margin-bottom: 12px;">
+                            <i class="fas fa-info-circle"></i> Pagamento simulado (projeto acadêmico): os dados do cartão
+                            não são enviados nem armazenados. Apenas o método e as parcelas são registrados.
+                        </p>
+                        <div class="form-group">
+                            <label for="select-parcelas">Parcelas</label>
+                            <select id="select-parcelas" style="width: 100%; padding: 12px; background: var(--bg-dark); color: white; border: 1px solid var(--border-color); border-radius: 8px;"></select>
+                        </div>
+                    </div>
+
+                    <div id="form-pix" class="payment-form" style="display: none; text-align: center; padding: 20px;">
+                        <i class="fab fa-pix" style="font-size: 3rem; color: #32BCAD; margin-bottom: 15px;"></i>
+                        <h4 style="margin-bottom: 10px;">Pagamento via Pix</h4>
+                        <p style="color: var(--text-muted); font-size: 0.875rem;">O pedido será criado como "Aguardando Pagamento" e confirmado pela loja (simulação).</p>
+                    </div>
+                </section>
+            </div>
+
+            <aside class="checkout-summary">
+                <h3>Resumo do Pedido</h3>
+                <div class="summary-items" id="resumo-itens"></div>
+                <div class="summary-total">
+                    <span>Total a pagar</span>
+                    <span class="total-price" id="resumo-total">R$ 0,00</span>
+                </div>
+                <button class="btn-primary" id="btn-finalizar" style="font-size: 1.125rem; padding: 15px; margin-top: 20px;">Finalizar Pedido</button>
+                <p style="text-align: center; font-size: 0.75rem; color: var(--text-muted); margin-top: 15px;"><i class="fas fa-lock"></i> Ambiente 100% Seguro</p>
+            </aside>
+        </div>
+    </main>
+
+    <footer class="footer">
+        <div class="footer-container">
+            <div class="footer-column">
+                <h3>Box<span>Tech</span></h3>
+                <p>A sua loja definitiva de hardware e periféricos de alta performance. Desenvolvido para gamers e profissionais exigentes.</p>
+                <div class="footer-socials">
+                    <a href="institucional.html#contato" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                    <a href="institucional.html#contato" aria-label="LinkedIn"><i class="fab fa-linkedin"></i></a>
+                    <a href="institucional.html#contato" aria-label="GitHub"><i class="fab fa-github"></i></a>
+                    <a href="institucional.html#contato" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
+                </div>
+            </div>
+            <div class="footer-column">
+                <h3>Atendimento</h3>
+                <ul class="footer-links">
+                    <li><a href="institucional.html#ajuda">Central de Ajuda</a></li>
+                    <li><a href="institucional.html#trocas">Trocas e Devoluções</a></li>
+                    <li><a href="institucional.html#prazos">Prazos de Entrega</a></li>
+                    <li><a href="acessibilidade.html">Acessibilidade</a></li>
+                </ul>
+            </div>
+            <div class="footer-column">
+                <h3>Institucional</h3>
+                <ul class="footer-links">
+                    <li><a href="institucional.html#quem-somos">Quem Somos</a></li>
+                    <li><a href="institucional.html#privacidade">Políticas de Privacidade</a></li>
+                    <li><a href="institucional.html#termos">Termos de Uso</a></li>
+                    <li><a href="institucional.html#trabalhe">Trabalhe Conosco</a></li>
+                </ul>
+            </div>
+            <div class="footer-column">
+                <h3>Pagamento</h3>
+                <p>Aceitamos as principais bandeiras:</p>
+                <div class="footer-payments">
+                    <i class="fab fa-cc-mastercard" title="Mastercard"></i>
+                    <i class="fab fa-cc-visa" title="Visa"></i>
+                    <i class="fab fa-pix" title="Pix"></i>
+                    <i class="fas fa-barcode" title="Boleto"></i>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2026 BoxTech Eletrônicos Ltda. Todos os direitos reservados. Projeto Acadêmico UNIP (PIM).</p>
+        </div>
+    </footer>
+    <!-- Plugin VLibras para tradução de conteúdo em Libras -->
+    <div vw class="enabled">
+        <div vw-access-button class="active"></div>
+        <div vw-plugin-wrapper>
+            <div class="vw-plugin-top-wrapper"></div>
+        </div>
+    </div>
+    <script src="https://vlibras.gov.br/app/vlibras-plugin.js"></script>
+    <script>
+        new window.VLibras.Widget('https://vlibras.gov.br/app');
+    </script>
+    <!-- Script principal do site, responsável por interações e ajustes de interface -->
+    <script src="api.js?v=6"></script>
+    <script src="script.js?v=6"></script>
+    <script src="pages.js?v=6"></script>
+</body>
+</html>

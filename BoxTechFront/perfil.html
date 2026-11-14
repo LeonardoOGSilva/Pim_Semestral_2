@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BoxTech - Meu Painel</title>
+    <!-- Ícones Font Awesome e estilos compartilhados do site -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css?v=6">
+    <link rel="shortcut icon" href="Imagens/Icon.jpg" type="image/x-icon">
+</head>
+<body>
+
+    <!-- Cabeçalho com navegação global e acesso ao painel de usuário -->
+    <div class="top-bar">FRETE GRÁTIS EM HARDWARE ACIMA DE R$ 1.000</div>
+    <header class="header">
+        <a href="index.html" class="logo">Box<span>Tech</span></a>
+        <div class="search-bar">
+            <input type="text" placeholder="O que você está procurando hoje?">
+            <button><i class="fas fa-search"></i></button>
+        </div>
+        <div class="header-icons">
+            <a href="login.html" aria-label="Perfil"><i class="far fa-user" title="Perfil"></i></a>
+            <a href="favoritos.html" aria-label="Favoritos"><i class="far fa-heart" title="Favoritos"></i></a>
+            <a href="carrinho.html" aria-label="Carrinho"><i class="fas fa-shopping-cart" title="Carrinho"></i><span class="cart-badge" id="cart-badge" hidden>0</span></a>
+            <a href="acessibilidade.html" aria-label="Acessibilidade"><i class="fas fa-universal-access" title="Acessibilidade"></i></a>
+        </div>
+    </header>
+
+    <main class="main-content">
+        <nav class="sub-nav">
+            <a href="index.html" class="back-button"><i class="fas fa-arrow-left"></i> Voltar à Loja</a>
+        </nav>
+
+        <div class="profile-layout">
+            <aside class="profile-sidebar">
+                <div class="profile-user-info">
+                    <div class="profile-avatar"><i class="fas fa-user-circle"></i></div>
+                    <h3 id="nome-usuario">Olá, Usuário!</h3>
+                </div>
+                <nav class="profile-menu">
+                    <a href="#" class="profile-link active" data-aba="pedidos"><i class="fas fa-box-open"></i> Meus Pedidos</a>
+                    <a href="#" class="profile-link" data-aba="dados"><i class="fas fa-id-card"></i> Meus Dados</a>
+                    <a href="#" class="profile-link" data-aba="enderecos"><i class="fas fa-map-marker-alt"></i> Endereços</a>
+                    <a href="#" class="profile-link" data-aba="seguranca"><i class="fas fa-shield-alt"></i> Segurança</a>
+                    <a href="login.html" class="profile-link logout" id="btn-sair"><i class="fas fa-sign-out-alt"></i> Sair</a>
+                </nav>
+            </aside>
+
+            <section class="profile-content">
+                <h2 class="profile-title" id="perfil-titulo">Meus Pedidos</h2>
+                <div id="perfil-conteudo"><p>Carregando...</p></div>
+            </section>
+        </div>
+    </main>
+
+    <!-- Rodapé com informações da marca, canais de atendimento e métodos de pagamento -->
+    <footer class="footer">
+        <div class="footer-container">
+            <div class="footer-column">
+                <h3>Box<span>Tech</span></h3>
+                <p>A sua loja definitiva de hardware e periféricos de alta performance. Desenvolvido para gamers e profissionais exigentes.</p>
+                <div class="footer-socials">
+                    <a href="institucional.html#contato" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                    <a href="institucional.html#contato" aria-label="LinkedIn"><i class="fab fa-linkedin"></i></a>
+                    <a href="institucional.html#contato" aria-label="GitHub"><i class="fab fa-github"></i></a>
+                    <a href="institucional.html#contato" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
+                </div>
+            </div>
+            <div class="footer-column">
+                <h3>Atendimento</h3>
+                <ul class="footer-links">
+                    <li><a href="institucional.html#ajuda">Central de Ajuda</a></li>
+                    <li><a href="institucional.html#trocas">Trocas e Devoluções</a></li>
+                    <li><a href="institucional.html#prazos">Prazos de Entrega</a></li>
+                    <li><a href="acessibilidade.html">Acessibilidade</a></li>
+                </ul>
+            </div>
+            <div class="footer-column">
+                <h3>Institucional</h3>
+                <ul class="footer-links">
+                    <li><a href="institucional.html#quem-somos">Quem Somos</a></li>
+                    <li><a href="institucional.html#privacidade">Políticas de Privacidade</a></li>
+                    <li><a href="institucional.html#termos">Termos de Uso</a></li>
+                    <li><a href="institucional.html#trabalhe">Trabalhe Conosco</a></li>
+                </ul>
+            </div>
+            <div class="footer-column">
+                <h3>Pagamento</h3>
+                <p>Aceitamos as principais bandeiras:</p>
+                <div class="footer-payments">
+                    <i class="fab fa-cc-mastercard" title="Mastercard"></i>
+                    <i class="fab fa-cc-visa" title="Visa"></i>
+                    <i class="fab fa-pix" title="Pix"></i>
+                    <i class="fas fa-barcode" title="Boleto"></i>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2026 BoxTech Eletrônicos Ltda. Todos os direitos reservados. Projeto Acadêmico UNIP (PIM).</p>
+        </div>
+    </footer>
+    <div vw class="enabled">
+        <div vw-access-button class="active"></div>
+        <div vw-plugin-wrapper>
+            <div class="vw-plugin-top-wrapper"></div>
+        </div>
+    </div>
+    <script src="https://vlibras.gov.br/app/vlibras-plugin.js"></script>
+    <script>
+        new window.VLibras.Widget('https://vlibras.gov.br/app');
+    </script>
+    <!-- Script principal e rotina de atualização do nome do usuário no painel -->
+    <script src="api.js?v=6"></script>
+    <script src="script.js?v=6"></script>
+    <script src="pages.js?v=6"></script>
+    <script>
+        const nomeUsuario = localStorage.getItem('usuarioNome');
+
+        if (nomeUsuario) {
+
+            document.getElementById('nome-usuario')
+                .innerText = `Olá, ${nomeUsuario}!`;
+        }
+
+    </script>
+</body>
+</html>

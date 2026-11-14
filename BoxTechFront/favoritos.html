@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+
+    <!-- Configurações básicas da página -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Título exibido na aba do navegador -->
+    <title>BoxTech - Meus Favoritos</title>
+
+    <!-- Biblioteca de ícones Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <!-- Arquivo principal de estilos -->
+    <link rel="stylesheet" href="style.css?v=6">
+
+    <!-- Ícone da aplicação -->
+    <link rel="shortcut icon" href="Imagens/Icon.jpg" type="image/x-icon">
+
+    <!-- Estilos específicos da página de favoritos -->
+    <style>
+
+        /* Botão responsável por remover itens dos favoritos */
+        .btn-remover-favorito {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: var(--surface);
+            border: 1px solid var(--border-color);
+            color: var(--text-muted);
+            width: 35px;
+            height: 35px;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            transition: 0.3s;
+            z-index: 2;
+        }
+
+        /* Efeito visual ao passar o mouse sobre o botão */
+        .btn-remover-favorito:hover {
+            color: var(--brand);
+            border-color: var(--brand);
+            box-shadow: 0 0 10px var(--brand-glow);
+        }
+
+        /* Permite posicionamento absoluto dos elementos internos */
+        .produto-card {
+            position: relative;
+        }
+
+    </style>
+
+</head>
+<body>
+
+    <!-- Cabeçalho principal -->
+    <div class="top-bar">FRETE GRÁTIS EM HARDWARE ACIMA DE R$ 1.000</div>
+    <header class="header">
+
+        <!-- Logo da loja -->
+        <a href="index.html" class="logo">
+            Box<span>Tech</span>
+        </a>
+
+        <!-- Campo de pesquisa -->
+        <div class="search-bar">
+            <input type="text" placeholder="O que você está procurando hoje?">
+            <button>
+                <i class="fas fa-search"></i>
+            </button>
+        </div>
+
+        <!-- Menu de atalhos -->
+        <div class="header-icons">
+            <a href="login.html" aria-label="Perfil"><i class="far fa-user" title="Perfil"></i></a>
+            <a href="favoritos.html" aria-label="Favoritos"><i class="far fa-heart" title="Favoritos"></i></a>
+            <a href="carrinho.html" aria-label="Carrinho"><i class="fas fa-shopping-cart" title="Carrinho"></i><span class="cart-badge" id="cart-badge" hidden>0</span></a>
+            <a href="acessibilidade.html" aria-label="Acessibilidade"><i class="fas fa-universal-access" title="Acessibilidade"></i></a>
+        </div>
+
+    </header>
+
+    <!-- Conteúdo principal -->
+    <main class="main-content">
+
+        <!-- Botão para retornar à página anterior -->
+        <nav class="sub-nav">
+
+            <a href="index.html" class="back-button">
+                <i class="fas fa-arrow-left"></i> Voltar
+            </a>
+
+        </nav>
+
+        <!-- Título da seção de favoritos -->
+        <h2 style="font-size: 28px; margin-bottom: 30px; margin-top: 20px;">
+            Meus Favoritos
+            <i class="fas fa-heart" style="color: var(--brand);"></i>
+        </h2>
+
+        <!-- Grade de produtos favoritados -->
+        <section class="produtos-grid" id="produtos-grid"><p>Carregando...</p></section>
+
+    </main>
+
+    <!-- Rodapé institucional -->
+    <footer class="footer">
+
+        <div class="footer-container">
+
+            <!-- Informações da empresa -->
+            <div class="footer-column">
+
+                <h3>Box<span>Tech</span></h3>
+
+                <p>
+                    A sua loja definitiva de hardware e periféricos de alta performance.
+                    Desenvolvido para gamers e profissionais exigentes.
+                </p>
+
+                <!-- Redes sociais -->
+                <div class="footer-socials">
+
+                    <a href="institucional.html#contato" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                    <a href="institucional.html#contato" aria-label="LinkedIn"><i class="fab fa-linkedin"></i></a>
+                    <a href="institucional.html#contato" aria-label="GitHub"><i class="fab fa-github"></i></a>
+                    <a href="institucional.html#contato" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
+
+                </div>
+
+            </div>
+
+            <!-- Links de atendimento -->
+            <div class="footer-column">
+
+                <h3>Atendimento</h3>
+
+                <ul class="footer-links">
+                    <li><a href="institucional.html#ajuda">Central de Ajuda</a></li>
+                    <li><a href="institucional.html#trocas">Trocas e Devoluções</a></li>
+                    <li><a href="institucional.html#prazos">Prazos de Entrega</a></li>
+                    <li><a href="acessibilidade.html">Acessibilidade</a></li>
+                </ul>
+
+            </div>
+
+            <!-- Links institucionais -->
+            <div class="footer-column">
+
+                <h3>Institucional</h3>
+
+                <ul class="footer-links">
+                    <li><a href="institucional.html#quem-somos">Quem Somos</a></li>
+                    <li><a href="institucional.html#privacidade">Políticas de Privacidade</a></li>
+                    <li><a href="institucional.html#termos">Termos de Uso</a></li>
+                    <li><a href="institucional.html#trabalhe">Trabalhe Conosco</a></li>
+                </ul>
+
+            </div>
+
+            <!-- Métodos de pagamento -->
+            <div class="footer-column">
+
+                <h3>Pagamento</h3>
+
+                <p>Aceitamos as principais bandeiras:</p>
+
+                <div class="footer-payments">
+                    <i class="fab fa-cc-mastercard" title="Mastercard"></i>
+                    <i class="fab fa-cc-visa" title="Visa"></i>
+                    <i class="fab fa-pix" title="Pix"></i>
+                    <i class="fas fa-barcode" title="Boleto"></i>
+                </div>
+
+            </div>
+
+        </div>
+
+        <!-- Informações de direitos autorais -->
+        <div class="footer-bottom">
+
+            <p>
+                &copy; 2026 BoxTech Eletrônicos Ltda.
+                Todos os direitos reservados.
+                Projeto Acadêmico UNIP (PIM).
+            </p>
+
+        </div>
+
+    </footer>
+
+    <!-- Plugin de acessibilidade VLibras -->
+    <div vw class="enabled">
+        <div vw-access-button class="active"></div>
+        <div vw-plugin-wrapper>
+            <div class="vw-plugin-top-wrapper"></div>
+        </div>
+    </div>
+
+    <!-- Script do VLibras -->
+    <script src="https://vlibras.gov.br/app/vlibras-plugin.js"></script>
+
+    <script>
+        new window.VLibras.Widget('https://vlibras.gov.br/app');
+    </script>
+
+    <!-- Script principal da aplicação -->
+    <script src="api.js?v=6"></script>
+    <script src="script.js?v=6"></script>
+    <script src="pages.js?v=6"></script>
+
+</body>
+</html>
