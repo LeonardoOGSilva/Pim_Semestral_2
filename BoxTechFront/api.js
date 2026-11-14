@@ -102,7 +102,7 @@ function calcularFrete(uf, subtotal) {
     }
 }
 
-const IMAGEM_PADRAO = 'Imagens/Icon.jpg';
+const IMAGEM_PADRAO = 'Imagens/Icon.png';
 function imagemProduto(p) { return (p && p.imagemUrl) ? p.imagemUrl : IMAGEM_PADRAO; }
 
 function mostrarAviso(mensagem, erro = false) {

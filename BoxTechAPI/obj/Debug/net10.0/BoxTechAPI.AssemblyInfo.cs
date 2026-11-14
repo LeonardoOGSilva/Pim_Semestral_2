@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("BoxTechAPI")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+511276d816eae0dddbcef2e7a1dd23bc454ef492")]
 [assembly: System.Reflection.AssemblyProductAttribute("BoxTechAPI")]
 [assembly: System.Reflection.AssemblyTitleAttribute("BoxTechAPI")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
