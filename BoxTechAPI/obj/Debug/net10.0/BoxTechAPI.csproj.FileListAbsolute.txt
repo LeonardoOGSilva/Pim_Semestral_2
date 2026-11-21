@@ -77,3 +77,4 @@ C:\Users\leoog\OneDrive\Área de Trabalho\PIM_Semestral_2-main\BoxTechAPI\obj\De
 C:\Users\leoog\OneDrive\Área de Trabalho\PIM_Semestral_2-main\BoxTechAPI\obj\Debug\net10.0\BoxTechAPI.pdb
 C:\Users\leoog\OneDrive\Área de Trabalho\PIM_Semestral_2-main\BoxTechAPI\obj\Debug\net10.0\BoxTechAPI.genruntimeconfig.cache
 C:\Users\leoog\OneDrive\Área de Trabalho\PIM_Semestral_2-main\BoxTechAPI\obj\Debug\net10.0\ref\BoxTechAPI.dll
+C:\Users\leoog\OneDrive\Área de Trabalho\PIM_Semestral_2-main\BoxTechAPI\obj\Debug\net10.0\BoxTechAPI.sourcelink.json

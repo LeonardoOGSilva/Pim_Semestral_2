@@ -484,8 +484,11 @@ async function iniciarPerfil() {
 async function iniciarAdmin() {
     if (!exigirLogin(true)) return;
     const painel = $('admin-conteudo');
-    let categorias = [], marcas = [];
-    try { [categorias, marcas] = await Promise.all([api('/categorias'), api('/marcas')]); } catch (e) { mostrarAviso(e.message, true); }
+    // Categorias e marcas carregam separadas: se uma falhar, a outra continua funcionando.
+    const [categorias, marcas] = await Promise.all([
+        api('/categorias').catch(e => { mostrarAviso('Categorias: ' + e.message, true); return []; }),
+        api('/marcas').catch(e => { mostrarAviso('Marcas: ' + e.message, true); return []; })
+    ]);
 
     const opcoes = (lista, sel, vazio) => (vazio ? `<option value="">${vazio}</option>` : '') +
         lista.map(x => `<option value="${x.id}" ${x.id === sel ? 'selected' : ''}>${esc(x.nome)}</option>`).join('');
