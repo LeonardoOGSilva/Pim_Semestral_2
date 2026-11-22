@@ -35,7 +35,7 @@ O projeto é a evolução da VoxTech (PIM anterior), reestruturado para atender 
 - Listagem de produtos com filtros por categoria e marca
 - Busca por texto
 - Página individual de produto, com galeria de imagens
-- Categorias e marcas vindas do banco
+- Categorias e marcas vindas do banco (Periféricos, Hardware, Computadores, Games, Celulares e Áudio)
 
 ## 🛒 Carrinho, favoritos e pedidos
 
@@ -49,7 +49,8 @@ O projeto é a evolução da VoxTech (PIM anterior), reestruturado para atender 
 
 ## 🧑‍💼 Painel administrativo
 
-- CRUD de produtos
+- CRUD de produtos, com **escolha da foto pelo próprio painel**: o arquivo é copiado para a pasta `Imagens` somente ao salvar
+- **Desativar** produto (some da loja, mantém o histórico) e **Excluir** definitivamente (só produtos que nunca foram vendidos; os que já têm pedidos são recusados pela API)
 - Listagem de pedidos e alteração de status
 - Relatório de vendas por período
 - Relatório de produtos mais vendidos
@@ -124,7 +125,7 @@ A documentação completa e testável está no Swagger. Rotas marcadas com 🔒 
 | Favoritos 🔒 | `/api/favoritos` |
 | Endereços 🔒 | `/api/enderecos` |
 | Pedidos 🔒 | `POST /api/pedidos` (checkout), `GET /api/pedidos`, `GET /api/pedidos/{id}`, cancelar pedido |
-| Admin 🔒 (perfil Admin) | `/api/admin/produtos` (CRUD), `/api/admin/pedidos`, `/api/admin/pedidos/{id}/status`, `/api/admin/relatorios/vendas`, `/api/admin/relatorios/mais-vendidos` |
+| Admin 🔒 (perfil Admin) | `/api/admin/produtos` (CRUD; `DELETE` desativa), `DELETE /api/admin/produtos/{id}/definitivo` (exclusão permanente), `POST /api/admin/produtos/imagem` (upload da foto), `/api/admin/pedidos`, `/api/admin/pedidos/{id}/status`, `/api/admin/relatorios/vendas`, `/api/admin/relatorios/mais-vendidos` |
 
 ---
 
@@ -135,7 +136,7 @@ A documentação completa e testável está no Swagger. Rotas marcadas com 🔒 
 - SQL Server (ou SQL Server Express) com o serviço em execução
 - SQL Server Management Studio (SSMS)
 - .NET SDK 10
-- Editor com Live Server, ou Python 3, para servir o front
+- Python 3 para servir o front e as imagens (ou Live Server)
 
 ## 1. Banco de dados
 
@@ -152,7 +153,15 @@ dotnet restore
 dotnet run
 ```
 
+Para o app mobile conseguir acessar, rode escutando em todas as interfaces:
+
+```bash
+dotnet run --urls "http://0.0.0.0:5132"
+```
+
 Swagger: `http://localhost:5132/swagger`
+
+A pasta onde o painel salva as fotos é definida em `appsettings.json`, na chave `Imagens:Pasta` (padrão: `../BoxTechFront/Imagens`).
 
 Na primeira execução a API cria o usuário administrador com senha em hash.
 
@@ -169,6 +178,18 @@ Acesse `http://localhost:5500`.
 
 > As origens liberadas ficam em `appsettings.json`, na chave `Cors:Origins`. Se usar outra porta, adicione-a ali.
 
+## ▶️ Iniciar tudo de uma vez (Windows)
+
+Coloque o `iniciar_boxtech.bat` na pasta que contém `BoxTechAPI` e `BoxTechFront` e dê dois cliques. Ele abre:
+
+| Janela | Porta | Função |
+|---|---|---|
+| BoxTech API | 5132 | API e Swagger |
+| BoxTech Site | 5500 | Site (front-end) |
+| BoxTech Imagens App | 5501 | Imagens dos produtos para o app mobile |
+
+Ele também mostra o IPv4 do notebook, usado para configurar o app, e abre o site no navegador. Para encerrar, feche as janelas pretas.
+
 ## 🔑 Acesso inicial
 
 | Perfil | E-mail | Senha |
@@ -181,7 +202,16 @@ Credenciais de **demonstração**: troque-as em `appsettings.json` (`Seed:AdminE
 
 # 📱 Aplicativo Mobile
 
-O app mobile consome a **mesma API e o mesmo banco** do site. Há um guia de integração com as rotas, o fluxo de autenticação por JWT e os formatos de dados.
+App Android (Java) que consome a **mesma API e o mesmo banco** do site, na pasta `BoxTechApp`.
+
+- Login e cadastro (CPF validado), sessão por token JWT
+- Catálogo com busca e categorias, detalhe do produto
+- Favoritos, carrinho (quantidade e remoção)
+- Checkout com endereço (ViaCEP), Pix ou cartão simulado e frete
+- Meus pedidos, com cancelamento
+- Botão ↻ para atualizar as telas
+
+Para rodar, veja o `LEIA-ME-APP.md` dentro de `BoxTechApp`. Em resumo: API na porta 5132, imagens na 5501 e, no celular físico, informar o IP do notebook em "Configurar servidor" (celular e notebook na mesma rede).
 
 ---
 
@@ -203,8 +233,3 @@ Projeto desenvolvido para a disciplina Projeto Integrado Multidisciplinar (PIM I
 # 📄 Licença
 
 Projeto acadêmico desenvolvido exclusivamente para fins educacionais.
-# Pim_Semestral_2
->>>>>>> 378c48b7a519e7e550d5c84cbff0e1400fe3dd90
-=======
-
->>>>>>> f86fd351bc8cdbc146e5d57d6915bf0ccaa4f75d

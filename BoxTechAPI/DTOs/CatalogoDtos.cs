@@ -4,9 +4,11 @@ namespace BoxTechAPI.DTOs;
 
 public record CategoriaDto(int Id, string Nome, string? Descricao);
 
+public record MarcaDto(int Id, string Nome);
+
 public record ProdutoDto(
     int Id, string Nome, string Descricao, decimal Preco, int Estoque, string ImagemUrl,
-    int CategoriaId, string Categoria, string? Marca, IReadOnlyList<string> Imagens);
+    int CategoriaId, string Categoria, int? MarcaId, string? Marca, bool Ativo, IReadOnlyList<string> Imagens);
 
 // Usado pelo Admin para criar/editar produtos.
 public class ProdutoSalvarDto

@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "Ap1trvWEtV4=",
+  "dgSpecHash": "0JaNYSjBC6M=",
   "success": true,
-  "projectFilePath": "C:\\Users\\leoog\\OneDrive\\Área de Trabalho\\PIM_Semestral_2-main\\BoxTechAPI\\BoxTechAPI.csproj",
+  "projectFilePath": "C:\\Projetos\\PIM_Semestral_2-main\\BoxTechAPI\\BoxTechAPI.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\leoog\\.nuget\\packages\\azure.core\\1.47.1\\azure.core.1.47.1.nupkg.sha512",
     "C:\\Users\\leoog\\.nuget\\packages\\azure.identity\\1.14.2\\azure.identity.1.14.2.nupkg.sha512",

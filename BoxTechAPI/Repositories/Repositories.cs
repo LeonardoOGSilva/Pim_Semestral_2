@@ -59,8 +59,25 @@ public class ProdutoRepository : IProdutoRepository
     public Task<List<Categoria>> ListarCategoriasAsync() =>
         _db.Categorias.AsNoTracking().Where(c => c.Ativa).OrderBy(c => c.Nome).ToListAsync();
 
+    public Task<List<Marca>> ListarMarcasAsync() =>
+        _db.Marcas.AsNoTracking().OrderBy(m => m.Nome).ToListAsync();
+
     public Task<bool> CategoriaExisteAsync(int id) => _db.Categorias.AnyAsync(c => c.Id == id);
     public Task<bool> MarcaExisteAsync(int id) => _db.Marcas.AnyAsync(m => m.Id == id);
+
+    public Task<bool> PossuiPedidosAsync(int id) => _db.PedidoItens.AnyAsync(i => i.ProdutoId == id);
+
+    // Remove o produto e tudo que depende dele (carrinhos, favoritos, imagens, auditoria) em uma transação.
+    public async Task ExcluirDefinitivoAsync(int id)
+    {
+        await using var tx = await _db.Database.BeginTransactionAsync();
+        await _db.Database.ExecuteSqlInterpolatedAsync($"DELETE FROM dbo.CarrinhoItem WHERE ProdutoId = {id}");
+        await _db.Database.ExecuteSqlInterpolatedAsync($"DELETE FROM dbo.Favorito WHERE ProdutoId = {id}");
+        await _db.Database.ExecuteSqlInterpolatedAsync($"DELETE FROM dbo.ProdutoImagem WHERE ProdutoId = {id}");
+        await _db.Database.ExecuteSqlInterpolatedAsync($"DELETE FROM dbo.AuditoriaProduto WHERE ProdutoId = {id}");
+        await _db.Database.ExecuteSqlInterpolatedAsync($"DELETE FROM dbo.Produto WHERE Id = {id}");
+        await tx.CommitAsync();
+    }
 }
 
 public class CarrinhoRepository : ICarrinhoRepository

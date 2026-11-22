@@ -25,6 +25,9 @@ public class ProdutoService : IProdutoService
     public async Task<List<CategoriaDto>> ListarCategoriasAsync() =>
         (await _produtos.ListarCategoriasAsync()).Select(c => new CategoriaDto(c.Id, c.Nome, c.Descricao)).ToList();
 
+    public async Task<List<MarcaDto>> ListarMarcasAsync() =>
+        (await _produtos.ListarMarcasAsync()).Select(m => new MarcaDto(m.Id, m.Nome)).ToList();
+
     public async Task<List<ProdutoDto>> ListarAdminAsync() =>
         (await _produtos.ListarAsync(null, null, incluirInativos: true)).Select(Mapear).ToList();
 
@@ -55,6 +58,15 @@ public class ProdutoService : IProdutoService
         await _uow.SalvarAsync();
     }
 
+    // Exclusão definitiva: só para produtos que nunca foram vendidos.
+    public async Task ExcluirAsync(int id)
+    {
+        _ = await _produtos.ObterAsync(id) ?? throw new NegocioException("Produto não encontrado.", 404);
+        if (await _produtos.PossuiPedidosAsync(id))
+            throw new NegocioException("Este produto já tem pedidos e não pode ser excluído. Use Desativar para tirá-lo da loja.", 409);
+        await _produtos.ExcluirDefinitivoAsync(id);
+    }
+
     private async Task ValidarReferenciasAsync(ProdutoSalvarDto dto)
     {
         if (!await _produtos.CategoriaExisteAsync(dto.CategoriaId)) throw new NegocioException("Categoria inexistente.");
@@ -69,5 +81,5 @@ public class ProdutoService : IProdutoService
 
     private static ProdutoDto Mapear(Produto p) => new(
         p.Id, p.Nome, p.Descricao, p.Preco, p.Estoque, p.ImagemUrl, p.CategoriaId, p.Categoria.Nome,
-        p.Marca?.Nome, p.Imagens.OrderBy(i => i.Ordem).Select(i => i.Url).ToList());
+        p.MarcaId, p.Marca?.Nome, p.Ativo, p.Imagens.OrderBy(i => i.Ordem).Select(i => i.Url).ToList());
 }

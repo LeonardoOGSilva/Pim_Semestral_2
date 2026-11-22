@@ -15,11 +15,13 @@ public interface IProdutoService
     Task<List<ProdutoDto>> ListarAsync(int? categoriaId, string? busca);
     Task<ProdutoDto> ObterAsync(int id);
     Task<List<CategoriaDto>> ListarCategoriasAsync();
+    Task<List<MarcaDto>> ListarMarcasAsync();
     // Administração
     Task<List<ProdutoDto>> ListarAdminAsync();
     Task<ProdutoDto> CriarAsync(ProdutoSalvarDto dto);
     Task<ProdutoDto> AtualizarAsync(int id, ProdutoSalvarDto dto);
     Task DesativarAsync(int id);
+    Task ExcluirAsync(int id);
 }
 
 public interface ICarrinhoService

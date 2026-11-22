@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#09070F"
+    android:fillViewport="true">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="24dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:letterSpacing="0.06"
+                android:text="BOX"
+                android:textColor="#FFFFFF"
+                android:textSize="34sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:letterSpacing="0.06"
+                android:text="TECH"
+                android:textColor="#A970FF"
+                android:textSize="34sp"
+                android:textStyle="bold" />
+        </LinearLayout>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="6dp"
+            android:gravity="center"
+            android:text="Crie sua conta"
+            android:textColor="#9D95AA"
+            android:textSize="14sp" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:background="#120F1B"
+            android:orientation="vertical"
+            android:padding="20dp">
+
+            <TextView style="@style/RotuloCampo" android:text="NOME" />
+            <EditText
+                android:id="@+id/edtNome"
+                style="@style/CampoTexto"
+                android:hint="Seu nome"
+                android:inputType="textPersonName|textCapWords" />
+
+            <TextView style="@style/RotuloCampo" android:text="SOBRENOME" />
+            <EditText
+                android:id="@+id/edtSobrenome"
+                style="@style/CampoTexto"
+                android:hint="Seu sobrenome"
+                android:inputType="textPersonName|textCapWords" />
+
+            <TextView style="@style/RotuloCampo" android:text="CPF" />
+            <EditText
+                android:id="@+id/edtCpf"
+                style="@style/CampoTexto"
+                android:hint="000.000.000-00"
+                android:inputType="number"
+                android:maxLength="14" />
+
+            <TextView style="@style/RotuloCampo" android:text="E-MAIL" />
+            <EditText
+                android:id="@+id/edtEmail"
+                style="@style/CampoTexto"
+                android:hint="exemplo@boxtech.com"
+                android:inputType="textEmailAddress" />
+
+            <TextView style="@style/RotuloCampo" android:text="SENHA" />
+            <EditText
+                android:id="@+id/edtSenha"
+                style="@style/CampoTexto"
+                android:hint="Mínimo 8, com letras e números"
+                android:inputType="textPassword" />
+
+            <TextView style="@style/RotuloCampo" android:text="CONFIRMAR SENHA" />
+            <EditText
+                android:id="@+id/edtConfirmar"
+                style="@style/CampoTexto"
+                android:hint="Repita a senha"
+                android:inputType="textPassword" />
+
+            <TextView
+                android:id="@+id/btnCadastrar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
+                android:background="#7C3AED"
+                android:clickable="true"
+                android:focusable="true"
+                android:gravity="center"
+                android:padding="15dp"
+                android:text="Criar conta"
+                android:textColor="#FFFFFF"
+                android:textSize="16sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/txtJaTenhoConta"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:clickable="true"
+                android:focusable="true"
+                android:gravity="center"
+                android:padding="8dp"
+                android:text="Já tenho conta · Entrar"
+                android:textColor="#A970FF"
+                android:textSize="14sp"
+                android:textStyle="bold" />
+        </LinearLayout>
+    </LinearLayout>
+</ScrollView>

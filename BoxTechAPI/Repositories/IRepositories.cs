@@ -19,8 +19,11 @@ public interface IProdutoRepository
     Task<Produto?> ObterAsync(int id, bool rastrear = false);
     Task AdicionarAsync(Produto produto);
     Task<List<Categoria>> ListarCategoriasAsync();
+    Task<List<Marca>> ListarMarcasAsync();
     Task<bool> CategoriaExisteAsync(int id);
     Task<bool> MarcaExisteAsync(int id);
+    Task<bool> PossuiPedidosAsync(int id);
+    Task ExcluirDefinitivoAsync(int id);
 }
 
 public interface ICarrinhoRepository

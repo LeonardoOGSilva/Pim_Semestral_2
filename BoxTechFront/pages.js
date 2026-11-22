@@ -508,7 +508,11 @@ async function iniciarAdmin() {
                 <div class="form-row">
                     <div class="form-group"><label>Categoria</label><select id="prod-categoria" class="admin-select">${opcoes(categorias, null)}</select></div>
                     <div class="form-group"><label>Marca</label><select id="prod-marca" class="admin-select">${opcoes(marcas, null, '— sem marca —')}</select></div>
-                    <div class="form-group" style="flex:2"><label>Imagem (caminho)</label><input id="prod-imagem" placeholder="Imagens/Produto.png"></div>
+                    <div class="form-group" style="flex:2"><label>Imagem do produto</label>
+                        <input type="file" id="prod-arquivo" accept="image/png,image/jpeg,image/webp">
+                        <input id="prod-imagem" placeholder="Nenhuma imagem selecionada" readonly style="margin-top:6px">
+                        <img id="prod-previa" alt="Prévia" style="display:none;max-height:90px;margin-top:8px;background:#fff;border-radius:8px;padding:4px">
+                        <small id="prod-imagem-status" style="display:block;margin-top:4px;opacity:.7">PNG, JPG ou WEBP, até 8 MB. O arquivo é copiado para a pasta Imagens ao clicar em Salvar.</small></div>
                 </div>
                 <div class="form-group"><label>Descrição</label><input id="prod-descricao" maxlength="4000"></div>
                 <button class="btn-primary" id="prod-salvar" style="width:auto;padding:10px 24px">Salvar</button>
@@ -520,31 +524,70 @@ async function iniciarAdmin() {
                     <td>${p.id}</td><td>${esc(p.nome)}</td><td>${esc(p.categoria)}</td><td>${brl(p.preco)}</td><td>${p.estoque}</td>
                     <td>${p.ativo ? 'Ativo' : 'Inativo'}</td>
                     <td><button class="admin-btn" data-editar='${esc(JSON.stringify(p))}'>Editar</button>
-                        ${p.ativo ? `<button class="admin-btn perigo" data-desativar="${p.id}">Desativar</button>` : ''}</td></tr>`).join('')}</tbody>
+                        ${p.ativo ? `<button class="admin-btn perigo" data-desativar="${p.id}">Desativar</button>` : ''}
+                        <button class="admin-btn perigo" data-excluir="${p.id}">Excluir</button></td></tr>`).join('')}</tbody>
             </table></div>`;
 
-            const limpar = () => { ['prod-id', 'prod-nome', 'prod-preco', 'prod-estoque', 'prod-imagem', 'prod-descricao'].forEach(i => { $(i).value = ''; });
-                $('form-prod-titulo').textContent = 'Novo produto'; $('prod-cancelar').style.display = 'none'; };
+            const mostrarPrevia = (src) => { const img = $('prod-previa'); if (src) { img.src = src; img.style.display = 'block'; } else { img.removeAttribute('src'); img.style.display = 'none'; } };
+            const limpar = () => { ['prod-id', 'prod-nome', 'prod-preco', 'prod-estoque', 'prod-imagem', 'prod-descricao', 'prod-arquivo'].forEach(i => { $(i).value = ''; });
+                mostrarPrevia(''); $('form-prod-titulo').textContent = 'Novo produto'; $('prod-cancelar').style.display = 'none';
+                arquivoPendente = null; caminhoJaEnviado = null; $('prod-imagem-status').textContent = 'PNG, JPG ou WEBP, até 8 MB. O arquivo é copiado para a pasta Imagens ao salvar.'; };
+
+            // Ao escolher o arquivo, só mostra a prévia. A cópia para a pasta Imagens acontece ao clicar em Salvar.
+            let arquivoPendente = null, caminhoJaEnviado = null;
+            $('prod-arquivo').addEventListener('change', (e) => {
+                const arquivo = e.target.files[0];
+                arquivoPendente = null; caminhoJaEnviado = null;
+                if (!arquivo) { mostrarPrevia($('prod-imagem').value || ''); return; }
+                if (arquivo.size > 8 * 1024 * 1024) { mostrarAviso('A imagem deve ter no máximo 8 MB.', true); e.target.value = ''; mostrarPrevia($('prod-imagem').value || ''); return; }
+                arquivoPendente = arquivo;
+                mostrarPrevia(URL.createObjectURL(arquivo));
+                $('prod-imagem-status').textContent = 'Selecionada: ' + arquivo.name + '. Será copiada para a pasta Imagens ao clicar em Salvar.';
+            });
             $('prod-cancelar').addEventListener('click', limpar);
             $('prod-salvar').addEventListener('click', async () => {
                 const id = $('prod-id').value;
+                // Valida antes de copiar a imagem, para não deixar arquivo solto na pasta se o cadastro for recusado.
+                if (!$('prod-nome').value.trim()) { mostrarAviso('Informe o nome do produto.', true); return; }
+                if ($('prod-preco').value === '' || Number($('prod-preco').value) < 0) { mostrarAviso('Informe um preço válido.', true); return; }
+                if ($('prod-estoque').value === '' || Number($('prod-estoque').value) < 0) { mostrarAviso('Informe o estoque.', true); return; }
+                if (!$('prod-categoria').value) { mostrarAviso('Escolha uma categoria.', true); return; }
+                const botaoSalvar = $('prod-salvar');
+                botaoSalvar.disabled = true;
+                try {
+                    if (arquivoPendente && !caminhoJaEnviado) {
+                        $('prod-imagem-status').textContent = 'Copiando imagem para a pasta Imagens...';
+                        const dados = new FormData(); dados.append('arquivo', arquivoPendente);
+                        const r = await apiEnvio('/admin/produtos/imagem', dados);
+                        caminhoJaEnviado = r.caminho;     // se o salvamento falhar, não envia a mesma foto duas vezes
+                    }
+                    if (caminhoJaEnviado) $('prod-imagem').value = caminhoJaEnviado;
+                } catch (err) {
+                    mostrarAviso(err.message, true); $('prod-imagem-status').textContent = 'Falha ao copiar a imagem.';
+                    botaoSalvar.disabled = false; return;
+                }
                 const corpo = { nome: $('prod-nome').value.trim(), descricao: $('prod-descricao').value, preco: Number($('prod-preco').value),
                     estoque: Number($('prod-estoque').value), imagemUrl: $('prod-imagem').value.trim(),
                     categoriaId: Number($('prod-categoria').value), marcaId: $('prod-marca').value ? Number($('prod-marca').value) : null, ativo: true };
                 try {
                     await api(id ? `/admin/produtos/${id}` : '/admin/produtos', { metodo: id ? 'PUT' : 'POST', corpo });
                     mostrarAviso('Produto salvo.'); abrirTela('produtos');
-                } catch (e) { mostrarAviso(e.message, true); }
+                } catch (e) { mostrarAviso(e.message, true); botaoSalvar.disabled = false; }
             });
             painel.querySelector('tbody').addEventListener('click', async (e) => {
-                const ed = e.target.closest('[data-editar]'), de = e.target.closest('[data-desativar]');
+                const ed = e.target.closest('[data-editar]'), de = e.target.closest('[data-desativar]'), ex = e.target.closest('[data-excluir]');
                 if (ed) {
                     const p = JSON.parse(ed.dataset.editar);
                     $('prod-id').value = p.id; $('prod-nome').value = p.nome; $('prod-preco').value = p.preco; $('prod-estoque').value = p.estoque;
                     $('prod-imagem').value = p.imagemUrl; $('prod-descricao').value = p.descricao;
+                    $('prod-arquivo').value = ''; arquivoPendente = null; caminhoJaEnviado = null; mostrarPrevia(p.imagemUrl || '');
                     $('prod-categoria').value = p.categoriaId; $('prod-marca').value = p.marcaId ?? '';
                     $('form-prod-titulo').textContent = `Editar produto #${p.id}`; $('prod-cancelar').style.display = 'inline-block';
                     window.scrollTo({ top: 0, behavior: 'smooth' });
+                }
+                if (ex && confirm('Excluir DEFINITIVAMENTE este produto? Esta ação não pode ser desfeita. (Produtos que já foram vendidos não podem ser excluídos; use Desativar.)')) {
+                    try { await api(`/admin/produtos/${ex.dataset.excluir}/definitivo`, { metodo: 'DELETE' }); mostrarAviso('Produto excluído.'); abrirTela('produtos'); } catch (err) { mostrarAviso(err.message, true); }
+                    return;
                 }
                 if (de && confirm('Desativar este produto? Ele sai da loja, mas o histórico de pedidos é mantido.')) {
                     try { await api(`/admin/produtos/${de.dataset.desativar}`, { metodo: 'DELETE' }); abrirTela('produtos'); } catch (err) { mostrarAviso(err.message, true); }

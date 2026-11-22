@@ -31,3 +31,14 @@ public class CategoriasController : ControllerBase
     [HttpGet]
     public async Task<ActionResult<List<CategoriaDto>>> Listar() => Ok(await _produtos.ListarCategoriasAsync());
 }
+
+[ApiController]
+[Route("api/marcas")]
+public class MarcasController : ControllerBase
+{
+    private readonly IProdutoService _produtos;
+    public MarcasController(IProdutoService produtos) => _produtos = produtos;
+
+    [HttpGet]
+    public async Task<ActionResult<List<MarcaDto>>> Listar() => Ok(await _produtos.ListarMarcasAsync());
+}

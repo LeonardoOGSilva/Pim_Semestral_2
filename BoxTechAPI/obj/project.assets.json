@@ -1641,11 +1641,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\leoog\\OneDrive\\Área de Trabalho\\PIM_Semestral_2-main\\BoxTechAPI\\BoxTechAPI.csproj",
+      "projectUniqueName": "C:\\Projetos\\PIM_Semestral_2-main\\BoxTechAPI\\BoxTechAPI.csproj",
       "projectName": "BoxTechAPI",
-      "projectPath": "C:\\Users\\leoog\\OneDrive\\Área de Trabalho\\PIM_Semestral_2-main\\BoxTechAPI\\BoxTechAPI.csproj",
+      "projectPath": "C:\\Projetos\\PIM_Semestral_2-main\\BoxTechAPI\\BoxTechAPI.csproj",
       "packagesPath": "C:\\Users\\leoog\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\leoog\\OneDrive\\Área de Trabalho\\PIM_Semestral_2-main\\BoxTechAPI\\obj\\",
+      "outputPath": "C:\\Projetos\\PIM_Semestral_2-main\\BoxTechAPI\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\leoog\\AppData\\Roaming\\NuGet\\NuGet.Config"

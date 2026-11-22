@@ -2,7 +2,8 @@
 // Camada de comunicação do front-end com a BoxTech API: sessão (JWT), chamadas HTTP e utilitários.
 // Carregado antes de script.js e pages.js.
 
-const API_BASE = 'http://localhost:5132/api';
+// Usa o mesmo endereço pelo qual o site foi aberto (localhost no notebook, 192.168.x.x no celular).
+const API_BASE = `http://${location.hostname || 'localhost'}:5132/api`;
 const CHAVE_SESSAO = 'boxtech_sessao';
 
 // ---------- Sessão (token JWT guardado no navegador) ----------
@@ -79,6 +80,31 @@ async function api(caminho, { metodo = 'GET', corpo = null } = {}) {
     return dados;
 }
 
+// Envio de arquivo (multipart/form-data), ex.: foto do produto no painel admin.
+async function apiEnvio(caminho, formData) {
+    const headers = { 'Accept': 'application/json' };
+    const sessao = obterSessao();
+    if (sessao) headers['Authorization'] = `Bearer ${sessao.token}`;
+    let resposta;
+    try {
+        resposta = await fetch(`${API_BASE}${caminho}`, { method: 'POST', headers, body: formData });
+    } catch {
+        throw new Error('Não foi possível conectar à API. Verifique se ela está rodando.');
+    }
+    const texto = await resposta.text();
+    let dados = null;
+    try { dados = texto ? JSON.parse(texto) : null; } catch { /* sem JSON */ }
+    if (!resposta.ok) {
+        let msg = (dados && dados.erro) || '';
+        if (!msg && dados && dados.errors) msg = Object.values(dados.errors).flat().join(' ');
+        if (!msg && resposta.status === 401) msg = 'Faça login para continuar.';
+        if (!msg && resposta.status === 403) msg = 'Você não tem permissão para isso.';
+        if (!msg && resposta.status === 413) msg = 'Arquivo grande demais.';
+        throw new Error(msg || `Erro ${resposta.status}`);
+    }
+    return dados;
+}
+
 // ---------- Utilitários ----------
 function brl(valor) {
     return Number(valor).toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
@@ -102,7 +128,7 @@ function calcularFrete(uf, subtotal) {
     }
 }
 
-const IMAGEM_PADRAO = 'Imagens/Icon.png';
+const IMAGEM_PADRAO = 'Imagens/Icon.jpeg';
 function imagemProduto(p) { return (p && p.imagemUrl) ? p.imagemUrl : IMAGEM_PADRAO; }
 
 function mostrarAviso(mensagem, erro = false) {
